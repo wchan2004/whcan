@@ -1,184 +1,88 @@
-#include <stdio.h>
 #include "screen.h"
+#include <stdio.h>
 
-int menu()
+int title(char* screen, int width, int height)
 {
-        char screen[500];
-
-        int a = 0;
-	while(a<15)
+    int w = 0;
+    int h = 0;
+    while (h < height)
+    {
+        while (w < width)
         {
-                int b = 0;
-                while(b<30)
+            if(w == width - 1)
+            {
+                screen[w +(h * (width))] = '\n';
+            }
+            else
+            {
+                if(w == 0 || w == width - 2 || h == 0 || h== height -1)
                 {
-                        if(a==0||a==14)
-                        {
-                                screen[b]='*';
-                        }
-                        else if(b==0||b==29)
-                        {
-                                screen[b]='*';
-                        }
-			else if(a==3&&b==5)
-		        {
-                                screen[b]='T';
-			}
-			else if(a==3&&b==6)
-			{
-                                screen[b]='h';
-			}
-			else if(a==3&&b==7)
-			{
-                                screen[b]='e';
-                        }
-			else if(a==3&&b==9)
-                        { 
-                                screen[b]='w';
-                        }
-                        else if(a==3&&b==10)
-                        {
-				screen[b]='o';
-                        }
-                        else if(a==3&&b==11)
-                        {
-                                screen[b]='r';
-                        }
-                        else if(a==3&&b==12)
-                        {
-                                screen[b]='m';
-                        }
-                        else if(a==3&&b==13)
-                        {
-                                screen[b]='g';
-                        }
-                        else if(a==3&&b==15)
-                        {
-                                screen[b]='a';
-                        }
-                        else if(a==3&&b==16)
-                        {
-                                screen[b]='m';
-                        }
-                        else if(a==3&&b==17)
-                        {
-                                screen[b]='e';
-                        }
-			else if(a==8&&b==5)
-                        {
-                               screen[b]='1';
-                        }
-			else if(a==8&&b==6)
-			{
-                               screen[b]='.';
-			}
-			else if(a==8&&b==8)
-			{
-                               screen[b]='G';
-			}
-			else if(a==8&&b==9)
-			{
-                               screen[b]='a';
-			}
-			else if(a==8&&b==10)
-			{
-                               screen[b]='m';
-			}
-			else if(a==8&&b==11)
-			{
-                               screen[b]='e';
-			}
-			else if(a==8&&b==13)
-			{
-                               screen[b]='s';
-			}
-			else if(a==8&&b==14)
-			{
-                               screen[b]='t';
-			}
-                        else if(a==8&&b==15)
-			{
-                               screen[b]='a';
-			}
-                        else if(a==8&&b==16)
-			{
-                               screen[b]='r';
-			}
-                        else if(a==8&&b==17)
-			{
-                               screen[b]='t';
-			}
-                        else if(a==9&&b==5)
-			{
-                               screen[b]='2';
-			}
-                        else if(a==9&&b==6)
-			{
-                               screen[b]='.';
-			}
-                        else if(a==9&&b==8)
-			{
-                               screen[b]='E';
-			}
-                        else if(a==9&&b==9)
-			{
-                               screen[b]='x';
-			}
-                        else if(a==9&&b==10)
-			{
-                               screen[b]='p';
-			}
-                        else if(a==9&&b==11)
-			{
-                               screen[b]='l';
-			}
-                        else if(a==9&&b==12)
-			{
-                               screen[b]='a';
-			}
-                        else if(a==9&&b==13)
-			{
-                               screen[b]='i';
-			}
-                        else if(a==9&&b==14)
-			{
-                               screen[b]='n';
-			}
-                        else if(a==10&&b==5)
-			{
-                               screen[b]='3';
-			}
-                        else if(a==10&&b==6)
-			{
-                               screen[b]='.';
-			}
-                        else if(a==10&&b==8)
-			{
-                               screen[b]='E';
-			}
-                        else if(a==10&&b==9)
-			{
-                               screen[b]='x';
-			}
-                        else if(a==10&&b==10)
-			{
-                               screen[b]='i';
-			}
-                        else if(a==10&&b==11)
-			{
-                               screen[b]='t';
-			}
-                        else
-			{
-                                screen[b]=' ';
-			}
-                        b+=1;
+                    screen[w + (h * (width))] = '=';
                 }
-
-                screen[30]='\n';
-                a+=1;
-                printf("%s",screen);
+                else
+                {
+                    screen[w + (h * (width))] = ' ';
+                }
+            }
+            w = w + 1;
         }
+        w = 0;
+        h = h + 1;
+    }
+    screen[height * width] = '\0';
+    return 0;
+}                        
 
-        return 0;
+int writeString(const char* string, char* screen, int width, int x, int y)
+{
+    int index = x + (y * width );
+    
+    int i = 0;
+
+    while (string[i] != '\0')
+    {
+        screen[index + i] = string[i];
+        i++;
+    }
+    
+    return 0;
 }
 
+int menu(char* screen, int width, int height)
+{
+    int x = width;
+    int y = height;
+    writeString("T h e", screen, width, 11, 2);
+    writeString("w o r m  g a m e", screen, width, 6, 3);
+    writeString("============================", screen, width,1,6);
+    writeString("1. Game Start", screen, width,3,8);
+    writeString("2. Explanation", screen, width,3,10);
+    writeString("3. Exit", screen, width,3,12);    
+}
+
+int explanation(char* screen, int width, int height)
+{
+    int x = width;
+    int y = height;
+    writeString("T h e", screen, width, 11, 2);
+    writeString("w o r m  g a m e", screen, width, 6, 3);
+    writeString("This game is moving,", screen, width, 4, 6);
+    writeString("When I eat food", screen, width, 7, 7);
+    writeString("The score increases.", screen, width, 4, 8);
+    writeString("============================", screen, width,1,9);
+    writeString("Do you want to leave?", screen, width, 4, 10);
+    writeString("y|n", screen, width, 12, 11);
+    writeString("1.Yes", screen, width, 2, 13);
+    writeString("2.No", screen, width, 22, 13);    
+}
+
+int finish(char* screen, int width, int height)
+{
+    int x = width;
+    int y = height;
+    writeString("Are you sure you want", screen, width, 4, 4);
+    writeString("to quit the game?", screen, width, 6, 6);
+    writeString("============================", screen, width,1,10);
+    writeString("1.Yes", screen, width, 2, 12);
+    writeString("2.No", screen, width, 22, 12);     
+}
