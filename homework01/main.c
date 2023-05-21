@@ -1,43 +1,67 @@
 #include <stdio.h>
 #include "screen.h"
+#include <stdlib.h>
 
 int main()
 {
-    menu();
-    int game_state = 1;
-    int input = 0;
-    while (game_state)
+    char screen[30*15+1];
+    int width = 30;
+    int height = 15;
+    int game = 1;
+
+    char input;
+    title(screen, width, height);
+    menu(screen,width,height);
+    system("cls");
+
+    while(game)
     {
-        scanf("%d",&input);
-        if(input==2)
+        printf("%s\nPlease input: ", screen);
+        scanf(" %c", &input);
+
+        if(input == '2')
         {
-            explain();
-            while(game_state)
+            system("cls");
+            title(screen, width, height);
+            explanation(screen,width,height);
+
+            printf("%s\nPlease input: ", screen);
+            scanf(" %c", &input);
+            
+            if(input == '1')
             {
-                scanf("%d",&input);
-                if (input==1)
-                {
-                    menu();
-                    game_state=0;
-                }
-                else if(input==2)
-                {
-                    explain();
-                }
-                else
-                {
-                    game_state=1;
-                }
+                system("cls");
+                title(screen, width, height);
+                menu(screen,width,height);
             }
-            game_state=1;
-
+            else if(input == '2')
+            {
+                system("cls");
+                title(screen, width, height);
+                explanation(screen,width,height);
+            }
         }
-        if(input==3)
+        else if(input == '3')
         {
+            system("cls");
+            title(screen, width, height);
+            finish(screen,width,height);
 
-                game_state=0;
-         
+            printf("%s\nPlease input: ", screen);
+            scanf(" %c", &input);
+
+            if(input == '1')
+            {
+                game = 0;
+            }
+            else if(input == '2')
+            {
+                system("cls");
+                title(screen, width, height);
+                menu(screen,width,height);
+            }
         }
     }
+
     return 0;
-}	
+}
